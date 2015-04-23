@@ -20,7 +20,7 @@ class Client(object):
             'api_version': self.API_VERSION
         }
 
-        self.artists = Artist(self)
+        self.artists = Artists(self)
 
     def request(self, path, params={}):
         url = urljoin(self.API_BASE_URL, path) + '.json'
@@ -36,7 +36,7 @@ class BaseAPIObject(object):
     def __init__(self, client):
         self.client = client
 
-class Artist(BaseAPIObject):
+class Artists(BaseAPIObject):
     def get(self, *args, **kwargs):
         """
         Searches for a single artist via this endpoint:
@@ -50,6 +50,13 @@ class Artist(BaseAPIObject):
             - A `mbid` kwarg with the artist's MusicBrainz ID
 
         Returns a dict or None if not found
+
+        Usage:
+
+            client = Client(app_id=1234)
+            client.artists.get('Bad Religion')
+            client.artists.get(fbid=168803467003)
+            client.artists.get(mbid='149e6720-4e4a-41a4-afca-6d29083fc091')
         """
         artist_identifier = self._get_artist_identifier(*args, **kwargs)
         return self.client.request('artists/%s' % artist_identifier)
@@ -71,6 +78,12 @@ class Artist(BaseAPIObject):
                     - A date range string in the format: yyyy-mm-dd,yyyy-mm-dd
 
         Returns a list or None if not found
+
+        Usage:
+
+            client = Client(app_id=1234)
+            client.artists.events('Bad Religion')
+            client.artists.events('Bad Religion', location='Portland,OR')
         """
         artist_identifier = self._get_artist_identifier(*args, **kwargs)
         params = {}
@@ -110,7 +123,7 @@ class Artist(BaseAPIObject):
         for param in ['radius', 'date']:
             if param in kwargs:
                 params[param] = kwargs[param]
-        return self.client.request('artists/%s/events' % artist_identifier, params)
+        return self.client.request('artists/%s/events/search' % artist_identifier, params)
 
     def recommended(self, *args, **kwargs):
         """
