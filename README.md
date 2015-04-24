@@ -4,6 +4,11 @@ Simple Python client for the [Bandsintown API](http://www.bandsintown.com/api/ov
 
 Tested with Python 2.7 and Python 3.4
 
+## Installation
+
+```shell
+pip install python-bandsintown
+```
 
 ## Usage
 
