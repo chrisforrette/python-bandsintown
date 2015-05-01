@@ -171,6 +171,8 @@ class Artists(BaseAPIObject):
 
     def _get_artist_identifier(self, *args, **kwargs):
         """
+        Get artist identifier based on passed in args/kwargs. Can be a string positional argument, 
+        an `fbid` kwarg (Facebook ID), or an `mbid` (MusicBrainz ID)
         """
         if 'fbid' in kwargs:
             return 'fbid_%s' % kwargs['fbid']
