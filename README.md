@@ -27,15 +27,15 @@ Find a single artist
 ```python
 # Find an artist by name
 
-client.artists.get('Bad Religion')
+client.get('Bad Religion')
 
 # Find an artist by Facebook page ID
 
-client.artists.get(fbid=168803467003)
+client.get(fbid=168803467003)
 
 # Find an artist by MusicBrainz ID
 
-client.artists.get(mbid='149e6720-4e4a-41a4-afca-6d29083fc091')
+client.get(mbid='149e6720-4e4a-41a4-afca-6d29083fc091')
 ```
 
 ### Events
@@ -44,17 +44,17 @@ Get a single artist's events
 
 ```python
 
-client.artists.events('Bad Religion')
+client.events('Bad Religion')
 
 # Filter by date
 
-client.artists.events('Bad Religion', date='2015-08-30')
+client.events('Bad Religion', date='2015-08-30')
 
 # ...or a date range
 
 # Filter by date
 
-client.artists.events('Bad Religion', date='2015-08-30,2015-12-25')
+client.events('Bad Religion', date='2015-08-30,2015-12-25')
 ```
 
 ### Search
@@ -62,11 +62,11 @@ client.artists.events('Bad Religion', date='2015-08-30,2015-12-25')
 Get a single artist's events with a few additional filter options: `location`, `radius`, and `date`
 
 ```python
-client.artists.search('Bad Religion', location='Portland,OR')
+client.search('Bad Religion', location='Portland,OR')
 
 # Pass an optional radius (in miles)
 
-client.artists.search('Bad Religion', location='Portland,OR', radius=100)
+client.search('Bad Religion', location='Portland,OR', radius=100)
 
 ```
 
@@ -77,9 +77,9 @@ and `only_recs` (when set to `True`, only recommended shows will be returned, wh
 passed in artist's will be included as well)
 
 ```python
-client.artists.recommended('Bad Religion', location='Portland,OR')
+client.recommended('Bad Religion', location='Portland,OR')
 
 # Only show recommendations
 
-client.artists.recommended('Bad Religion', location='Portland,OR', only_recs=True)
+client.recommended('Bad Religion', location='Portland,OR', only_recs=True)
 ```

@@ -14,5 +14,5 @@ setup(
         "Topic :: Software Development"
     ],
     license='MIT',
-    install_requires=['requests'],
+    install_requires=['requests<3'],
 )
