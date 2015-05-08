@@ -16,7 +16,7 @@ pip install python-bandsintown
 
 # Instantiate client with your app id (this can be anything)
 
-from bandsintown.client import Client
+from bandsintown import Client
 client = Client('mybandapp')
 ```
 
