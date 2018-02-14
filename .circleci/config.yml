@@ -1,0 +1,28 @@
+version: 2
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-2.x
+      - test-3.x
+
+jobs:
+  test-2.x:
+    docker:
+      - image: python:2
+    working_directory: ~/app
+    steps:
+      - checkout
+      - pip install -r ./requirements.txt
+      - make lint
+      - make test
+  test-3.x:
+    docker:
+      - image: python:3
+    working_directory: ~/app
+    steps:
+      - checkout
+      - pip install -r ./requirements.txt
+      - make lint
+      - make test
