@@ -14,15 +14,15 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - pip install -r ./requirements.txt
-      - make lint
-      - make test
+      - run: pip install -r ./requirements.txt
+      - run: make lint
+      - run: make test
   test-3.x:
     docker:
       - image: python:3
     working_directory: ~/app
     steps:
       - checkout
-      - pip install -r ./requirements.txt
-      - make lint
-      - make test
+      - run: pip install -r ./requirements.txt
+      - run: make lint
+      - run: make test
