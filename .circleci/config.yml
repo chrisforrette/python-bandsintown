@@ -11,7 +11,7 @@ jobs:
   test-2.x:
     docker:
       - image: python:2
-    working_directory: ~/app
+    working_directory: ~/bandsintown
     steps:
       - checkout
       - run: pip install -r ./requirements.txt
@@ -20,7 +20,7 @@ jobs:
   test-3.x:
     docker:
       - image: python:3
-    working_directory: ~/app
+    working_directory: ~/bandsintown
     steps:
       - checkout
       - run: pip install -r ./requirements.txt
