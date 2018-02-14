@@ -1,5 +1,3 @@
-import pytest
-
 import mock
 
 from bandsintown import Client
@@ -62,60 +60,119 @@ def test_artists_events(fake_request):
 def test_artists_events_with_date(fake_request):
     client = Client('epitaph')
     client.events('Bad Religion', date='2015-01-01')
-    fake_request.assert_called_with('artists/Bad%20Religion/events', {'date': '2015-01-01'})
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events',
+        {'date': '2015-01-01'}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_search(fake_request):
     client = Client('epitaph')
     client.search('Bad Religion', location='Portland,OR')
-    fake_request.assert_called_with('artists/Bad%20Religion/events/search', {'location': 'Portland,OR'})
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/search',
+        {'location': 'Portland,OR'}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_search_with_radius(fake_request):
     client = Client('epitaph')
     client.search('Bad Religion', location='Portland,OR', radius=100)
-    fake_request.assert_called_with('artists/Bad%20Religion/events/search', {'location': 'Portland,OR', 'radius': 100})
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/search',
+        {'location': 'Portland,OR', 'radius': 100}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_search_with_date(fake_request):
     client = Client('epitaph')
-    client.search('Bad Religion', location='Portland,OR', radius=100, date='2015-02-03')
-    fake_request.assert_called_with('artists/Bad%20Religion/events/search', {'location': 'Portland,OR', 'radius': 100, 'date': '2015-02-03'})
+    client.search(
+        'Bad Religion',
+        location='Portland,OR',
+        radius=100,
+        date='2015-02-03'
+    )
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/search',
+        {'location': 'Portland,OR', 'radius': 100, 'date': '2015-02-03'}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_recommended(fake_request):
     client = Client('epitaph')
     client.recommended('Bad Religion', location='Portland,OR')
-    fake_request.assert_called_with('artists/Bad%20Religion/events/recommended', {'location': 'Portland,OR'})
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/recommended',
+        {'location': 'Portland,OR'}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_recommended_with_radius(fake_request):
     client = Client('epitaph')
     client.recommended('Bad Religion', location='Portland,OR', radius=125)
-    fake_request.assert_called_with('artists/Bad%20Religion/events/recommended', {'location': 'Portland,OR', 'radius': 125})
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/recommended',
+        {'location': 'Portland,OR', 'radius': 125}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_recommended_with_date(fake_request):
     client = Client('epitaph')
-    client.recommended('Bad Religion', location='Portland,OR', radius=125, date='2015-10-10')
-    fake_request.assert_called_with('artists/Bad%20Religion/events/recommended', {'location': 'Portland,OR', 'radius': 125, 'date': '2015-10-10'})
+    client.recommended(
+        'Bad Religion',
+        location='Portland,OR',
+        radius=125,
+        date='2015-10-10'
+    )
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/recommended',
+        {'location': 'Portland,OR', 'radius': 125, 'date': '2015-10-10'}
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_recommended_with_only_recs(fake_request):
     client = Client('epitaph')
-    client.recommended('Bad Religion', location='Portland,OR', radius=125, date='2015-10-10', only_recs=True)
-    fake_request.assert_called_with('artists/Bad%20Religion/events/recommended', {'location': 'Portland,OR', 'radius': 125, 'date': '2015-10-10', 'only_recs': 'true'})
+    client.recommended(
+        'Bad Religion',
+        location='Portland,OR',
+        radius=125,
+        date='2015-10-10',
+        only_recs=True
+    )
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/recommended',
+        {
+            'location': 'Portland,OR',
+            'radius': 125,
+            'date': '2015-10-10',
+            'only_recs': 'true'
+        }
+    )
 
 
 @mock.patch.object(Client, 'request')
 def test_artists_recommended_with_only_recs_false(fake_request):
     client = Client('epitaph')
-    client.recommended('Bad Religion', location='Portland,OR', radius=125, date='2015-10-10', only_recs=False)
-    fake_request.assert_called_with('artists/Bad%20Religion/events/recommended', {'location': 'Portland,OR', 'radius': 125, 'date': '2015-10-10', 'only_recs': 'false'})
+    client.recommended(
+        'Bad Religion',
+        location='Portland,OR',
+        radius=125,
+        date='2015-10-10',
+        only_recs=False
+    )
+    fake_request.assert_called_with(
+        'artists/Bad%20Religion/events/recommended',
+        {
+            'location': 'Portland,OR',
+            'radius': 125,
+            'date': '2015-10-10',
+            'only_recs': 'false'
+        }
+    )

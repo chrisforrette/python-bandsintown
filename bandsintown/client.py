@@ -1,5 +1,3 @@
-import os
-
 try:
     from urllib.parse import quote, urljoin
 except ImportError:
@@ -116,7 +114,10 @@ class Client(object):
         for param in ['radius', 'date']:
             if param in kwargs:
                 params[param] = kwargs[param]
-        return self.request('artists/%s/events/search' % artist_identifier, params)
+        return self.request(
+            'artists/%s/events/search' % artist_identifier,
+            params
+        )
 
     def recommended(self, *args, **kwargs):
         """
@@ -160,7 +161,10 @@ class Client(object):
         if 'only_recs' in kwargs:
             params['only_recs'] = 'true' if kwargs['only_recs'] else 'false'
 
-        return self.request('artists/%s/events/recommended' % artist_identifier, params)
+        return self.request(
+            'artists/%s/events/recommended' % artist_identifier,
+            params
+        )
 
     def _get_artist_identifier(self, *args, **kwargs):
         """

@@ -7,7 +7,7 @@ setup(
     keywords='bandsintown api client tour dates',
     author='Chris Forrette',
     author_email='chris@chrisforrette.com',
-    url='https://github.com/jolbyandfriends/python-bandsintown',
+    url='https://github.com/chrisforrette/python-bandsintown',
     packages=find_packages(),
     classifiers=[
         "Intended Audience :: Developers",
