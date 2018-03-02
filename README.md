@@ -1,85 +1,118 @@
 # Bandsintown Python Client
 
-Simple Python client for the [Bandsintown API](http://www.bandsintown.com/api/overview) (v2).
+Simple Python client for version 3 of the [Bandsintown API](http://www.artists.bandsintown.com/bandsintown-api/).
 
-Tested with Python 2.7 and Python 3.4
+See [the official API documentation for more details](https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0).
+
+## Requirements
+
+Python 2.x or 3.x
 
 ## Installation
 
-```shell
+```sh
 pip install python-bandsintown
 ```
 
-## Usage
+## Instantiation
+
+Your app id can be anything, but usage requires written permission from Bandsintown, see here: http://www.artists.bandsintown.com/bandsintown-api/#1-pick-application-id
 
 ```python
-
-# Instantiate client with your app id (this can be anything)
-
 from bandsintown import Client
 client = Client('mybandapp')
 ```
 
-### Get
+## API
 
-Find a single artist
+### `artists`
 
-```python
-# Find an artist by name
-
-client.get('Bad Religion')
-
-# Find an artist by Facebook page ID
-
-client.get(fbid=168803467003)
-
-# Find an artist by MusicBrainz ID
-
-client.get(mbid='149e6720-4e4a-41a4-afca-6d29083fc091')
-```
-
-### Events
-
-Get a single artist's events
+Find a single artist by name:
 
 ```python
-
-client.events('Bad Religion')
-
-# Filter by date
-
-client.events('Bad Religion', date='2015-08-30')
-
-# ...or a date range
-
-# Filter by date
-
-client.events('Bad Religion', date='2015-08-30,2015-12-25')
+client.artists('Bad Religion')
 ```
 
-### Search
-
-Get a single artist's events with a few additional filter options: `location`, `radius`, and `date`
+Example response:
 
 ```python
-client.search('Bad Religion', location='Portland,OR')
-
-# Pass an optional radius (in miles)
-
-client.search('Bad Religion', location='Portland,OR', radius=100)
-
+{
+  'facebook_page_url': 'https://www.facebook.com/badreligion',
+  'upcoming_event_count': 16,
+  'name': 'Bad Religion',
+  'url': 'https://www.bandsintown.com/a/658?came_from=267&app_id=bandsintown-test-client',
+  'tracker_count': 477737,
+  'mbid': '149e6720-4e4a-41a4-afca-6d29083fc091',
+  'image_url': 'https://s3.amazonaws.com/bit-photos/large/6277078.jpeg',
+  'thumb_url': 'https://s3.amazonaws.com/bit-photos/thumb/6277078.jpeg',
+  'id': '658'
+}
 ```
 
-### Recommended
+See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/single_artist_information/artist
 
-Get a set of recommended events based on an artist with a few filters: `location`, `radius`, `date`
-and `only_recs` (when set to `True`, only recommended shows will be returned, when `False`, the 
-passed in artist's will be included as well)
+### `artist_events`
+
+Get a single artist's events, with an optional `date` parameter that can be a single date in the format: `yyyy-mm-dd`, a date range in the format: `yyyy-mm-dd,yyyy-mm-dd`, or a keyword value of `all` or `upcoming`.
 
 ```python
-client.recommended('Bad Religion', location='Portland,OR')
-
-# Only show recommendations
-
-client.recommended('Bad Religion', location='Portland,OR', only_recs=True)
+client.artist_events('Bad Religion')
 ```
+
+#### Fetch events for a specific date
+
+```python
+client.artists_events('Bad Religion', date='2015-08-30')
+```
+
+#### Fetch events within a date range
+
+```python
+client.artists_events('Bad Religion', date='2015-08-30,2015-12-25')
+```
+
+#### Example Response:
+
+```python
+[
+  {
+    'artist_id': '658',
+    'datetime': '2018-05-04T13:00:00',
+    'description': '2 Day Pass - Hell and Heaven 2018',
+    'id': '20590797',
+    'lineup': ['Bad Religion'],
+    'offers': [{
+      'status': 'available',
+      'type': 'Tickets',
+      'url': 'https://www.bandsintown.com/t/20590797?app_id=bandsintown-test-client&came_from=267'
+    }],
+    'on_sale_datetime': '2017-10-09T16:00:00',
+    'url': 'https://www.bandsintown.com/e/20590797?app_id=bandsintown-test-client&came_from=267',
+    'venue': {
+      'city': 'Mexico City',
+      'country': 'Mexico',
+      'latitude': '19.40259',
+      'longitude': '-99.09815',
+      'name': 'Aut\xf3dromo Hermanos Rodr\xedguez',
+      'region': 'DF'
+    }
+  }
+  # ...
+]
+```
+
+See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/upcoming_artist_events
+
+## Errors
+
+### `BandsintownError`
+
+This serves as the base class for other exceptions, so can be used to catch all errors from this client. Currently it's only raised in the `artists_events` in the event of an unknown error.
+
+### `BandsintownInvalidAppIdError`
+
+This error is raised whenever a request is made with an invalid app id specified at client instantiation.
+
+### `BandsintownInvalidDateFormatError`
+
+This error is raised by the `artists_events` method when a `date` parameter is passed in an invalid format.
