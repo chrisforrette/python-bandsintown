@@ -119,7 +119,6 @@ class Client(object):
         data = self.request('artists/%s/events' % quote(artistname), params)
 
         if 'errors' in data:
-            print(data)
             if data['errors'][0] == 'Invalid date format':
                 raise BandsintownInvalidDateFormatError(
                     'Invalid date parameter: "%s", must be in the format: "yyyy-mm-dd", or "yyyy-mm-dd,yyyy-mm-dd" for a range, or keywords "upcoming" or "all"' % date

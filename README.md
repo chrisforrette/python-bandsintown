@@ -14,9 +14,7 @@ Python 2.x or 3.x
 pip install python-bandsintown
 ```
 
-## Usage
-
-### Instantiate client with your app id
+## Instantiation
 
 Your app id can be anything, but usage requires written permission from Bandsintown, see here: http://www.artists.bandsintown.com/bandsintown-api/#1-pick-application-id
 
@@ -25,7 +23,9 @@ from bandsintown import Client
 client = Client('mybandapp')
 ```
 
-### Find a single artist
+## API
+
+### `artists`
 
 Find a single artist by name:
 
@@ -33,50 +33,40 @@ Find a single artist by name:
 client.artists('Bad Religion')
 ```
 
-See: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/single_artist_information/artist
+See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/single_artist_information/artist
 
-### Events
+### `artist_events`
 
-Get a single artist's events
-
-```python
-
-client.events('Bad Religion')
-
-# Filter by date
-
-client.events('Bad Religion', date='2015-08-30')
-
-# ...or a date range
-
-# Filter by date
-
-client.events('Bad Religion', date='2015-08-30,2015-12-25')
-```
-
-### Search
-
-Get a single artist's events with a few additional filter options: `location`, `radius`, and `date`
+Get a single artist's events, with an optional `date` parameter that can be a single date in the format: `yyyy-mm-dd`, a date range in the format: `yyyy-mm-dd,yyyy-mm-dd`, or a keyword value of `all` or `upcoming`.
 
 ```python
-client.search('Bad Religion', location='Portland,OR')
-
-# Pass an optional radius (in miles)
-
-client.search('Bad Religion', location='Portland,OR', radius=100)
-
+client.artist_events('Bad Religion')
 ```
 
-### Recommended
-
-Get a set of recommended events based on an artist with a few filters: `location`, `radius`, `date`
-and `only_recs` (when set to `True`, only recommended shows will be returned, when `False`, the 
-passed in artist's will be included as well)
+#### Fetch events for a specific date
 
 ```python
-client.recommended('Bad Religion', location='Portland,OR')
-
-# Only show recommendations
-
-client.recommended('Bad Religion', location='Portland,OR', only_recs=True)
+client.artists_events('Bad Religion', date='2015-08-30')
 ```
+
+#### Fetch events within a date range
+
+```python
+client.artists_events('Bad Religion', date='2015-08-30,2015-12-25')
+```
+
+See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/upcoming_artist_events
+
+## Errors
+
+### `BandsintownError`
+
+This serves as the base class for other exceptions, so can be used to catch all errors from this client. Currently it's only raised in the `artists_events` in the event of an unknown error.
+
+### `BandsintownInvalidAppIdError`
+
+This error is raised whenever a request is made with an invalid app id specified at client instantiation.
+
+### `BandsintownInvalidDateFormatError`
+
+This error is raised by the `artists_events` method when a `date` parameter is passed in an invalid format.
