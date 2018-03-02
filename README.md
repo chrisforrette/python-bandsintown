@@ -1,42 +1,39 @@
 # Bandsintown Python Client
 
-Simple Python client for the [Bandsintown API](http://www.bandsintown.com/api/overview) (v2).
+Simple Python client for version 3 of the [Bandsintown API](http://www.artists.bandsintown.com/bandsintown-api/).
 
-Tested with Python 2.7 and Python 3.4
+See [the official API documentation for more details](https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0).
+
+## Requirements
+
+Python 2.x or 3.x
 
 ## Installation
 
-```shell
+```sh
 pip install python-bandsintown
 ```
 
 ## Usage
 
+### Instantiate client with your app id
+
+Your app id can be anything, but usage requires written permission from Bandsintown, see here: http://www.artists.bandsintown.com/bandsintown-api/#1-pick-application-id
+
 ```python
-
-# Instantiate client with your app id (this can be anything)
-
 from bandsintown import Client
 client = Client('mybandapp')
 ```
 
-### Get
+### Find a single artist
 
-Find a single artist
+Find a single artist by name:
 
 ```python
-# Find an artist by name
-
-client.get('Bad Religion')
-
-# Find an artist by Facebook page ID
-
-client.get(fbid=168803467003)
-
-# Find an artist by MusicBrainz ID
-
-client.get(mbid='149e6720-4e4a-41a4-afca-6d29083fc091')
+client.artists('Bad Religion')
 ```
+
+See: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/single_artist_information/artist
 
 ### Events
 
