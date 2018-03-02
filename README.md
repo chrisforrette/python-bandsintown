@@ -33,6 +33,22 @@ Find a single artist by name:
 client.artists('Bad Religion')
 ```
 
+Example response:
+
+```python
+{
+  'facebook_page_url': 'https://www.facebook.com/badreligion',
+  'upcoming_event_count': 16,
+  'name': 'Bad Religion',
+  'url': 'https://www.bandsintown.com/a/658?came_from=267&app_id=bandsintown-test-client',
+  'tracker_count': 477737,
+  'mbid': '149e6720-4e4a-41a4-afca-6d29083fc091',
+  'image_url': 'https://s3.amazonaws.com/bit-photos/large/6277078.jpeg',
+  'thumb_url': 'https://s3.amazonaws.com/bit-photos/thumb/6277078.jpeg',
+  'id': '658'
+}
+```
+
 See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/single_artist_information/artist
 
 ### `artist_events`
@@ -53,6 +69,36 @@ client.artists_events('Bad Religion', date='2015-08-30')
 
 ```python
 client.artists_events('Bad Religion', date='2015-08-30,2015-12-25')
+```
+
+#### Example Response:
+
+```python
+[
+  {
+    'artist_id': '658',
+    'datetime': '2018-05-04T13:00:00',
+    'description': '2 Day Pass - Hell and Heaven 2018',
+    'id': '20590797',
+    'lineup': ['Bad Religion'],
+    'offers': [{
+      'status': 'available',
+      'type': 'Tickets',
+      'url': 'https://www.bandsintown.com/t/20590797?app_id=bandsintown-test-client&came_from=267'
+    }],
+    'on_sale_datetime': '2017-10-09T16:00:00',
+    'url': 'https://www.bandsintown.com/e/20590797?app_id=bandsintown-test-client&came_from=267',
+    'venue': {
+      'city': 'Mexico City',
+      'country': 'Mexico',
+      'latitude': '19.40259',
+      'longitude': '-99.09815',
+      'name': 'Aut\xf3dromo Hermanos Rodr\xedguez',
+      'region': 'DF'
+    }
+  }
+  # ...
+]
 ```
 
 See the official API documentation for this endpoint here: https://app.swaggerhub.com/apis/Bandsintown/PublicAPI/3.0.0#/upcoming_artist_events
